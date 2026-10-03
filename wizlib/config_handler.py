@@ -96,8 +96,8 @@ class ConfigHandler(Handler):
         # Otherwise look at the YAML or injected data
         if (data := self.data):
             split = data_path.split('-')
-            while (key := split.pop(0)) and (key in data):
-                data = data[key] if key in data else None
+            while (key := split.pop(0)) and isinstance(data, dict) and (key in data):
+                data = data[key]
                 if not split:
                     if isinstance(data, str):
                         data = evaluate_string(data)
